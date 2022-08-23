@@ -6,7 +6,7 @@ import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "sakjdfhsjfjsfdjfhjnffnfhiue"
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://ortqzqbrwzfcuo:bcc47786fd9f93af8079abd1434cb3860bf3974448de4e8855d7f72b920838e6@ec2-44-193-178-122.compute-1.amazonaws.com:5432/d8uocf3jcl9rd0"#"postgresql://postgres:12345@localhost:5432/cars_api"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:12345@localhost:5432/cars_api"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
