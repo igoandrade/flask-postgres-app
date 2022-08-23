@@ -2,7 +2,6 @@ from flask import Flask, request, redirect, render_template, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap4
-import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "sakjdfhsjfjsfdjfhjnffnfhiue"
