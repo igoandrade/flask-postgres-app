@@ -2,10 +2,12 @@ from flask import Flask, request, redirect, render_template, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap4
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "sakjdfhsjfjsfdjfhjnffnfhiue"
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:12345@localhost:5432/cars_api"
+app.config.from_object(os.environ['APP_SETTINGS'])
+#app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:12345@localhost:5432/cars_api"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
