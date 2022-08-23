@@ -1,0 +1,64 @@
+{% macro modal_template(btn_trigger_class="btn btn-primary", btn_trigger_label="Launch modal", modal_id="modal_id",
+modal_title="Modal
+title", modal_body=None) %}
+<!-- Button trigger modal -->
+<a class="{{btn_trigger_class}}" data-toggle="modal" data-target="#{{modal_id}}">{{btn_trigger_label | safe }}</a>
+
+<!-- Modal -->
+<div class="modal fade" id="{{modal_id}}" tabindex="-1" aria-labelledby="macroModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="macroModalLabel">{{modal_title}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{modal_body}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endmacro %}
+
+
+<!-- Macro New/Edit Car -->
+{% macro form_car(action="#", car=None) %}
+<form action="{{action}}" class="text-left" method="POST">
+    <div class="row">
+        <div class="col form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" name="name" aria-describedby="nome"
+                value="{% if car %}{{car.name}}{% else %}{% endif %}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-9 form-group">
+            <label for="model">Model</label>
+            <input type="text" class="form-control" name="model" value="{% if car %}{{car.model}}{% else %}{% endif %}">
+        </div>
+        <div class="col col-3 form-group">
+            <label for="doors">Doors</label>
+            <select class="form-control" name="doors">
+                {% for doors in [2, 4] %}
+                {% if car %}
+                {% if doors==car.doors %}
+                <option value="{{doors}}" selected>{{doors}}</option>
+                {% else %}
+                <option value="{{doors}}">{{doors}}</option>
+                {% endif %}
+                {% else %}
+                <option value="{{doors}}">{{doors}}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-sm btn-primary">Save</button>
+</form>
+{% endmacro %}

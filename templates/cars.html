@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% from 'bootstrap4/utils.html' import render_icon %}
+
+
+{% from "macros.html" import modal_template, form_car, form_macro_docente%}
+
+{% block title %}Flask Cars{%endblock%}
+
+{%block page_title %}List Cars{% endblock %}
+
+{%block content %}
+{{super()}}
+
+<div class="text-right mt-2 mb-3">
+    {{modal_template(btn_trigger_class="btn btn-primary", btn_trigger_label="New car", modal_id="new_car", modal_title="Add new car", modal_body=form_car(action=url_for('insert_car')))}}
+</div>
+
+
+<table class="table table-hover table-striped table-sm">
+    <thead class="thead-dark bg-dark">
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Model</th>
+            <th class="text-right">Doors</th>
+            <th class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for car in cars %}
+        <tr>
+            <td>{{car.id}}</td>
+            <td>{{car.name}}</td>
+            <td>{{car.model}}</td>
+            <td class="text-right">{{car.doors}}</td>
+            <td class="text-center">
+                {{modal_template(btn_trigger_class="text-primary", btn_trigger_label=render_icon('pencil-square'), modal_id="edit-car-" + car.id | string, modal_title="Edit car", modal_body=form_car(action=url_for('update_car', car_id=car.id), car=car))}}
+
+                <a href="{{url_for('delete_car', car_id=car.id)}}" class="text-danger" title="Delete" onclick="return confirm('Do you really want to delete the car {{car.id}}: {{car.name}}?')">{{ render_icon('trash') }}</i></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
